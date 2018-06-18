@@ -4,23 +4,19 @@ const state = {
   items: [
     {
       id: 1,
-      height: defaultBlockHeight,
-      weight: 1
+      height: defaultBlockHeight
     },
     {
       id: 2,
-      height: defaultBlockHeight,
-      weight: 2
+      height: defaultBlockHeight
     },
     {
       id: 3,
-      height: defaultBlockHeight,
-      weight: 3
+      height: defaultBlockHeight
     },
     {
       id: 4,
-      height: defaultBlockHeight,
-      weight: 4
+      height: defaultBlockHeight
     }
   ]
 }

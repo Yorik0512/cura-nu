@@ -1,13 +1,17 @@
 <template>
   <div class="dashboard">
     <div class="dashboard__items">
-      <DashboardItem
-        class="dashboard__item"
-        v-for="item in dashboardItems"
-        :key="item.id"
-        :itemId="item.id"
-        :height="item.height"
-      />
+      <draggable v-model="dashboardItems">
+          <transition-group>
+            <DashboardItem
+              class="dashboard__item"
+              v-for="item in dashboardItems"
+              :key="item.id"
+              :itemId="item.id"
+              :height="item.height"
+            />
+          </transition-group>
+      </draggable>
       <div class="dashboard__add-item" @click="addDashboardItem">+ Add item</div>
     </div>
   </div>
@@ -15,6 +19,7 @@
 
 <script>
 import DashboardItem from '@/components/DashboardItem.vue'
+import draggable from 'vuedraggable'
 
 export default {
   state: {
@@ -22,11 +27,27 @@ export default {
     dashboardCurrentId: ''
   },
   computed: {
-    dashboardItems () {
-      return this.$store.getters.getDashbordItems
-    },
     dashboardCurrentId () {
       return Number(this.$store.getters.getDashbordCounterId + 1)
+    },
+    /**
+     * Draggable Dashboard items functionality.
+     */
+    dashboardItems: {
+      /**
+       * Get Dashboard items form Vuex store.
+       */
+      get () {
+        return this.$store.getters.getDashbordItems
+      },
+      /**
+       * Set changed Dashboard items to Vuex store.
+       * @param {object} dashboardItems
+       *   Changed Dashboard items data.
+       */
+      set (dashboardItems) {
+        this.$store.dispatch('updateDashboardItems', dashboardItems)
+      }
     }
   },
   methods: {
@@ -46,7 +67,8 @@ export default {
     }
   },
   components: {
-    DashboardItem
+    DashboardItem,
+    draggable
   }
 }
 </script>
@@ -61,6 +83,7 @@ export default {
 
     &__item {
       margin-bottom: 30px;
+      cursor: move;
     }
 
     &__add-item {
