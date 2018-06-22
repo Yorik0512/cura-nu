@@ -1,7 +1,14 @@
+/**
+ * @file
+ * Contains implementation of Router.
+ */
+
 import Vue from 'vue'
 import Router from 'vue-router'
-import Dashboard from '@/views/Dashboard.vue'
-import About from '@/views/About.vue'
+
+// Lazy load views components.
+const Dashboard = () => import('@/views/Dashboard.vue')
+const Transactions = () => import('@/views/Transactions.vue')
 
 Vue.use(Router)
 
@@ -13,9 +20,9 @@ export default new Router({
       component: Dashboard
     },
     {
-      path: '/about',
-      name: 'about',
-      component: About
+      path: '/transactions',
+      name: 'transactions',
+      component: Transactions
     }
   ]
 })

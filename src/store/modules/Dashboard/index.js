@@ -1,4 +1,15 @@
+/**
+ * @file
+ * Contains implementation of Dashboard Vuex storage module.
+ */
+
+import * as getters from './getters'
+import * as actions from './actions'
+import * as mutations from './mutations'
+
 const defaultBlockHeight = 100
+
+// Default state.
 const state = {
   counterId: 4,
   items: [
@@ -22,5 +33,8 @@ const state = {
 }
 
 export default {
-  state
+  state,
+  actions,
+  getters,
+  mutations
 }

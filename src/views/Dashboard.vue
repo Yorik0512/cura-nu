@@ -1,3 +1,8 @@
+/**
+* @file
+* Contains implementation of Dashboard view component.
+*/
+
 <template>
   <div class="dashboard">
     <div class="dashboard__items">
@@ -9,6 +14,7 @@
               :key="item.id"
               :itemId="item.id"
               :height="item.height"
+              resize="vertical"
             />
           </transition-group>
       </draggable>
@@ -23,10 +29,12 @@ import draggable from 'vuedraggable'
 
 export default {
   state: {
-    dashboardItems: [],
-    dashboardCurrentId: ''
+    dashboardItems: []
   },
   computed: {
+    /**
+     * Update Dashboard current id.
+     */
     dashboardCurrentId () {
       return Number(this.$store.getters.getDashbordCounterId + 1)
     },
@@ -75,12 +83,6 @@ export default {
 
 <style scoped lang="scss">
   .dashboard {
-    &__items {
-      max-width: 600px;
-      width: 100%;
-      margin: 0 auto;
-    }
-
     &__item {
       margin-bottom: 30px;
       cursor: move;
