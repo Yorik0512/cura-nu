@@ -3,12 +3,11 @@
 * Contains implementation of Dashboard item component.
 */
 <template>
-  <vue-resize-sensor style="width: 100%; height: 100%;" @resize="onResize" :debounce="0">
+  <vue-resize-sensor @resize="onResize">
     <el-card
       class="box-card dashboard-item"
       :class="{ 'dashboard-item--resize-vertical': resize == `vertical`}"
-      :style="dashboardItemStyles"
-      ref="dashboardItem">
+      :style="dashboardItemStyles">
       <div slot="header" class="dashboard-item__header">
         <span class="dashboard-item__title">#{{itemId}}</span>
         <el-button
@@ -27,10 +26,13 @@
 
 <script>
 import VueResizeSensor from 'vueresizesensor'
+import _ from 'lodash'
 
 export default {
-  state: {
-    dashboardItems: []
+  data () {
+    return {
+      updatedHeight: 0
+    }
   },
   props: ['itemId', 'height', 'resize'],
   computed: {
@@ -51,14 +53,13 @@ export default {
      * @param {number} height
      *  Changed element height.
      */
-    onResize: function ({width, height}) {
+    onResize: _.debounce(function ({width, height}) {
       const item = {
         id: Number(this.itemId),
         height: Number(height) - 2
       }
-      setTimeout(function () { console.log(item) }, 3000)
-      // this.$store.dispatch('updateDashboardItemHeight', item)
-    },
+      this.$store.dispatch('updateDashboardItemHeight', item)
+    }, 200),
     /**
      * Delete item from dashboard items.
      * @param {number} id
@@ -79,6 +80,8 @@ export default {
   .dashboard-item {
     &--resize-vertical {
       resize: vertical;
+      min-height: 50px;
+      max-height: 500px;
     }
 
     &__header {

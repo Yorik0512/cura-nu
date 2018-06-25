@@ -101,6 +101,9 @@ export default {
       this.transactionData = []
       this.transactionSum = 0
     }
+  },
+  destroyed () {
+    this.$socket.sendObj({'op': 'unconfirmed_unsub'})
   }
 }
 </script>

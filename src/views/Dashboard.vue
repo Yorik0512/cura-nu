@@ -7,16 +7,14 @@
   <div class="dashboard">
     <div class="dashboard__items">
       <draggable v-model="dashboardItems">
-          <transition-group>
-            <DashboardItem
-              class="dashboard__item"
-              v-for="item in dashboardItems"
-              :key="item.id"
-              :itemId="item.id"
-              :height="item.height"
-              resize="vertical"
-            />
-          </transition-group>
+        <DashboardItem
+          class="dashboard__item"
+          v-for="item in dashboardItems"
+          :key="item.id"
+          :itemId="item.id"
+          :height="item.height"
+          resize="vertical"
+        />
       </draggable>
       <div class="dashboard__add-item" @click="addDashboardItem">+ Add item</div>
     </div>
